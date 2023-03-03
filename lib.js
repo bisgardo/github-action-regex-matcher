@@ -1,3 +1,4 @@
+const core = require("@actions/core");
 const unmatchedGroupVal = '';
 
 function match(pattern, input) {
@@ -7,12 +8,16 @@ function match(pattern, input) {
         // Not using 'Object.entries' for 'match' as that includes the non-array elements.
         let idx = 0;
         for (const m of match) {
+            core.info(`match idx='${idx}' val='${m}'`);
             res.set(`_${idx++}`, m || unmatchedGroupVal);
         }
         Object.entries(match.groups || {})
-            .forEach(([name, val]) => res.set(name, val || unmatchedGroupVal));
+            .forEach(([name, val]) => {
+                core.info(`match name='${name}' val='${val}'`);
+                res.set(name, val || unmatchedGroupVal);
+            });
     }
     return res;
 }
 
-module.exports = { match };
+module.exports = {match};
