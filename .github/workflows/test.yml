@@ -23,6 +23,6 @@ jobs:
     - run: |
         echo "0: '${{steps.my_step.outputs._0}}'"
         echo "1: '${{steps.my_step.outputs._1}}'"
-        echo "trimmed: ${{steps.my_step.outputs.trimmed}}'"
-        echo "declared: ${{steps.my_step.outputs.declared}}'"
-        echo "undeclared: ${{steps.my_step.outputs.undeclared}}'"
+        echo "trimmed: '${{steps.my_step.outputs.trimmed}}'"
+        echo "declared: '${{steps.my_step.outputs.declared}}'"
+        echo "undeclared: '${{steps.my_step.outputs.undeclared}}'"

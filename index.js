@@ -4,8 +4,8 @@ const {match} = require('./lib');
 const pattern = core.getInput('pattern');
 const input = core.getInput('input');
 
-core.setOutput('undeclared', ' x ');
-core.setOutput('declared', ' y ');
+core.setOutput('undeclared', ' bla bla ');
+core.setOutput('declared', ' bla bla ');
 
 try {
   match(pattern, input)

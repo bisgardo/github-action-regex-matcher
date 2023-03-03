@@ -4,6 +4,8 @@ require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /***/ 909:
 /***/ ((module) => {
 
+const unmatchedGroupVal = '';
+
 function match(pattern, input) {
     const match = input.match(pattern);
     const res = new Map();
@@ -11,10 +13,10 @@ function match(pattern, input) {
         // Not using 'Object.entries' for 'match' as that includes the non-array elements.
         let idx = 0;
         for (const m of match) {
-            res.set(`_${idx++}`, m || '');
+            res.set(`_${idx++}`, m || unmatchedGroupVal);
         }
         Object.entries(match.groups || {})
-            .forEach(([name, val]) => res.set(name, val || ''));
+            .forEach(([name, val]) => res.set(name, val || unmatchedGroupVal));
     }
     return res;
 }
@@ -2846,8 +2848,8 @@ const {match} = __nccwpck_require__(909);
 const pattern = core.getInput('pattern');
 const input = core.getInput('input');
 
-core.setOutput('undeclared', ' x ');
-core.setOutput('declared', ' y ');
+core.setOutput('undeclared', ' bla bla ');
+core.setOutput('declared', ' bla bla ');
 
 try {
   match(pattern, input)
