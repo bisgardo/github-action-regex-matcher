@@ -1,19 +1,16 @@
-# `dist/index.js` is a special file in Actions.
-# When you reference an action with `uses:` in a workflow,
-# `index.js` is the code that will run.
-# For our project, we generate this file through a build process from other source files.
-# We need to make sure the checked-in `index.js` actually matches what we expect it to be.
-name: Check dist/
+# Workflow for checking that the files checked into './dist/' match the output of the build.
+
+name: Check dist
 
 on:
   push:
     branches:
-      - main
+    - main
     paths-ignore:
-      - '**.md'
+    - '**.md'
   pull_request:
     paths-ignore:
-      - '**.md'
+    - '**.md'
   workflow_dispatch:
 
 jobs:
@@ -31,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Rebuild the dist/ directory
+      - name: Rebuild the dist directory
         run: npm run prepare
 
       - name: Compare the expected and actual dist/ directories
@@ -42,10 +39,3 @@ jobs:
             exit 1
           fi
         id: diff
-
-      # If index.js was different than expected, upload the expected version as an artifact
-      - uses: actions/upload-artifact@v3
-        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
-        with:
-          name: dist
-          path: dist/

@@ -1,24 +1,45 @@
-const wait = require('./wait');
-const process = require('process');
-const cp = require('child_process');
-const path = require('path');
+const {match} = require('./lib');
 
-test('throws invalid number', async () => {
-  await expect(wait('foo')).rejects.toThrow('milliseconds not a number');
+test('invalid pattern fails', () => {
+  expect(() => match('(', 'input')).toThrowError('Invalid regular expression: /(/: Unterminated group');
 });
 
-test('wait 500 ms', async () => {
-  const start = new Date();
-  await wait(500);
-  const end = new Date();
-  var delta = Math.abs(end - start);
-  expect(delta).toBeGreaterThanOrEqual(500);
+test('no-match yields empty result', () => {
+  const res = match('pattern', 'mismatch');
+  expect(res).toEqual(new Map());
 });
 
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = 100;
-  const ip = path.join(__dirname, 'index.js');
-  const result = cp.execSync(`node ${ip}`, {env: process.env}).toString();
-  console.log(result);
-})
+test('no-match with group yields empty result', () => {
+  const res = match('(pattern)', 'mismatch');
+  expect(res).toEqual(new Map());
+});
+
+test('match without group is captured', () => {
+  const res = match('ab', 'ab');
+  expect(res).toEqual(new Map([['0', 'ab']]));
+});
+
+test('unnamed group matches are captured', () => {
+  const res = match('(a)(b)', 'ab');
+  expect(res).toEqual(new Map([['0', 'ab'], ['1', 'a'], ['2', 'b']]));
+});
+
+test('named group matches are captured', () => {
+  const res = match('(?<x>a)(?<y>b)', 'ab');
+  expect(res).toEqual(new Map([['0', 'ab'], ['1', 'a'], ['x', 'a'], ['2', 'b'], ['y', 'b']]));
+});
+
+test('unnamed and named group matches', () => {
+  const res = match('(?<x>a)(b)', 'ab');
+  expect(res).toEqual(new Map([['0', 'ab'], ['1', 'a'], ['x', 'a'], ['2', 'b']]));
+});
+
+test('unmatched groups get empty value', () => {
+  const res = match('a|(b)|(?<x>c)', 'a');
+  expect(res).toEqual(new Map([['0', 'a'], ['1', ''], ['2', ''], ['x', '']]));
+});
+
+test('empty group is captured', () => {
+  const res = match('()', 'a');
+  expect(res).toEqual(new Map([['0', ''], ['1', '']]));
+});

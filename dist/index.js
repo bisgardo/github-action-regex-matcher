@@ -1,6 +1,29 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 909:
+/***/ ((module) => {
+
+function match(pattern, input) {
+    const match = input.match(pattern);
+    const res = new Map();
+    if (match) {
+        // Not using 'Object.entries' for 'match' as that includes the non-array elements.
+        let idx = 0;
+        for (const m of match) {
+            res.set(`${idx++}`, m || ''); // TODO need to prepend '_' to make the output key valid?
+        }
+        Object.entries(match.groups || {})
+            .forEach(([name, val]) => res.set(name, val || ''));
+    }
+    return res;
+}
+
+module.exports = { match };
+
+
+/***/ }),
+
 /***/ 351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -2688,23 +2711,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 258:
-/***/ ((module) => {
-
-let wait = function (milliseconds) {
-  return new Promise((resolve) => {
-    if (typeof milliseconds !== 'number') {
-      throw new Error('milliseconds not a number');
-    }
-    setTimeout(() => resolve("done!"), milliseconds)
-  });
-};
-
-module.exports = wait;
-
-
-/***/ }),
-
 /***/ 357:
 /***/ ((module) => {
 
@@ -2835,26 +2841,18 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(186);
-const wait = __nccwpck_require__(258);
+const {match} = __nccwpck_require__(909);
 
+const pattern = core.getInput('pattern');
+const input = core.getInput('input');
 
-// most @actions toolkit packages have async methods
-async function run() {
-  try {
-    const ms = core.getInput('milliseconds');
-    core.info(`Waiting ${ms} milliseconds ...`);
-
-    core.debug((new Date()).toTimeString()); // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-    await wait(parseInt(ms));
-    core.info((new Date()).toTimeString());
-
-    core.setOutput('time', new Date().toTimeString());
-  } catch (error) {
-    core.setFailed(error.message);
-  }
+try {
+  match(pattern, input)
+      .forEach((val, name) => core.setOutput(name, val));
+} catch (e) {
+  // The only way this should happen is if the pattern is invalid.
+  core.setFailed(e.message);
 }
-
-run();
 
 })();
 

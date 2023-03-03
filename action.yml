@@ -1,13 +1,13 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "regex"
+description: "Match and parse an input string against a given regex pattern."
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  pattern:
+    description: "regex pattern"
     required: true
-    default: '1000'
+  input:
+    description: "input string to match and parse"
+    required: true
 outputs:
-  time: # output will be available to future steps
-    description: 'The current time after waiting'
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
