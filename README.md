@@ -30,7 +30,3 @@ jobs:
 
 If the string matches, the groups are exposed in the step's output as fields numbered by the group index prefixed by `_`.
 If the group is named, the match is exposed as a field with the group's name as well.
-
-*Notice:* It appears that at some point in the stack, the output values actually get trimmed.
-At least, in the example above, the value of output `_0` is `bla bla`, i.e. not surrounded by whitespace
-as would be expected for the 0th match group.

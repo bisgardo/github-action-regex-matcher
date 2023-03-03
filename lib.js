@@ -15,4 +15,4 @@ function match(pattern, input) {
     return res;
 }
 
-module.exports = { match };
+module.exports = {match};

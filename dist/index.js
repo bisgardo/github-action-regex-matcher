@@ -21,7 +21,7 @@ function match(pattern, input) {
     return res;
 }
 
-module.exports = { match };
+module.exports = {match};
 
 
 /***/ }),
@@ -2845,15 +2845,15 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(186);
 const {match} = __nccwpck_require__(909);
 
-const pattern = core.getInput('pattern');
-const input = core.getInput('input');
+const pattern = core.getInput('pattern', {trimWhitespace: false});
+const input = core.getInput('input', {trimWhitespace: false});
 
 try {
-  match(pattern, input)
-      .forEach((val, name) => core.setOutput(name, val));
+    match(pattern, input)
+        .forEach((val, name) => core.setOutput(name, val));
 } catch (e) {
-  // The only way this should happen is if the pattern is invalid.
-  core.setFailed(e.message);
+    // The only way this should happen is if the pattern is invalid.
+    core.setFailed(e.message);
 }
 
 })();
