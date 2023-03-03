@@ -1,4 +1,4 @@
-name: "regex"
+name: "regex-parse"
 description: "Match and parse an input string against a given regex pattern."
 inputs:
   pattern:

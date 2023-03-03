@@ -1,4 +1,4 @@
-# `bisgardo/regex`
+# `bisgardo/regex-parse`
 
 GitHub action for matching an input string against a regular expression pattern and extracting named groups.
 
