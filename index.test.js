@@ -43,3 +43,7 @@ test('empty group is captured', () => {
   const res = match('()', 'a');
   expect(res).toEqual(new Map([['_0', ''], ['_1', '']]));
 });
+test('tmp', () => {
+  const res = match('^\\s*(.*?)\\s*$', ' bla bla ');
+  expect(res).toEqual(new Map([['_0', ' bla bla '], ['_1', 'bla bla']]));
+});

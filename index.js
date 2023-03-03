@@ -9,7 +9,10 @@ core.setOutput('declared', ' bla bla ');
 
 try {
   match(pattern, input)
-      .forEach((val, name) => core.setOutput(name, val));
+      .forEach((val, name) => {
+        core.info(`setting name='${name}' val='${val}'`);
+        core.setOutput(name, val);
+      });
 } catch (e) {
   // The only way this should happen is if the pattern is invalid.
   core.setFailed(e.message);
