@@ -11,7 +11,7 @@ function match(pattern, input) {
         // Not using 'Object.entries' for 'match' as that includes the non-array elements.
         let idx = 0;
         for (const m of match) {
-            res.set(`${idx++}`, m || ''); // TODO need to prepend '_' to make the output key valid?
+            res.set(`_${idx++}`, m || '');
         }
         Object.entries(match.groups || {})
             .forEach(([name, val]) => res.set(name, val || ''));

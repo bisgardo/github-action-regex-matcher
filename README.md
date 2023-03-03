@@ -23,10 +23,10 @@ jobs:
         pattern: '^\s*(?<trimmed>.*?)\s*$'
         input: ' bla bla '
     - run: |
-        echo "0: ${{steps.my_step.outputs.0}}"
-        echo "1: ${{steps.my_step.outputs.1}}"
+        echo "0: ${{steps.my_step.outputs._0}}"
+        echo "1: ${{steps.my_step.outputs._1}}"
         echo "trimmed: ${{steps.my_step.outputs.trimmed}}"
 ```
 
-If the string matches, the groups are exposed in the step's output as fields numbered by the group index.
+If the string matches, the groups are exposed in the step's output as fields numbered by the group index prefixed by `_`.
 If the group is named, the match is exposed as a field with the group's name as well.
