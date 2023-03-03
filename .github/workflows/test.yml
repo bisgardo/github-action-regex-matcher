@@ -16,6 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ./
+      id: my_step
       with:
         pattern: '^\s*(?<trimmed>.*?)\s*$'
         input: ' bla bla '
