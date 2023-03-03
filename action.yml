@@ -7,7 +7,9 @@ inputs:
   input:
     description: "input string to match and parse"
     required: true
-outputs: {}
+outputs:
+  declared:
+    description: "test value"
 runs:
   using: "node16"
   main: "dist/index.js"

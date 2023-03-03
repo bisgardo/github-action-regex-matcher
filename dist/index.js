@@ -2846,6 +2846,9 @@ const {match} = __nccwpck_require__(909);
 const pattern = core.getInput('pattern');
 const input = core.getInput('input');
 
+core.setOutput('undeclared', ' x ');
+core.setOutput('declared', ' y ');
+
 try {
   match(pattern, input)
       .forEach((val, name) => core.setOutput(name, val));

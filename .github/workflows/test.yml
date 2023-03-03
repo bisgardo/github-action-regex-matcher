@@ -21,5 +21,8 @@ jobs:
         pattern: '^\s*(?<trimmed>.*?)\s*$'
         input: ' bla bla '
     - run: |
-        [ "${{steps.my_step.outputs._1}}" =  "bla bla" ]
-        [ "${{steps.my_step.outputs.trimmed}}" = "bla bla" ]
+        echo "0: '${{steps.my_step.outputs._0}}'"
+        echo "1: '${{steps.my_step.outputs._1}}'"
+        echo "trimmed: ${{steps.my_step.outputs.trimmed}}'"
+        echo "declared: ${{steps.my_step.outputs.declared}}'"
+        echo "undeclared: ${{steps.my_step.outputs.undeclared}}'"
