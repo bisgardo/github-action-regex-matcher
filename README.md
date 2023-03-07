@@ -29,4 +29,8 @@ jobs:
 ```
 
 If the string matches, the groups are exposed in the step's output as fields numbered by the group index prefixed by `_`.
-If the group is named, the match is exposed as a field with the group's name as well.
+If the group is [named](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Groups_and_Backreferences#using_named_groups),
+the match is exposed as a field with the group's name as well.
+
+If a group is named `_<n>` where `<n>` is a number and there is a group number `<n>`,
+then the output field will contain the value captured by the named group.
