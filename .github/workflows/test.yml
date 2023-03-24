@@ -25,8 +25,8 @@ jobs:
       id: my_step
       with:
         pattern: '^\s*(?<trimmed>.*?)\s*$'
-        input: ' bla bla '
+        input: ' blah blah '
     - run: |
-        [ "${{steps.my_step.outputs._0}}" = " bla bla " ]
-        [ "${{steps.my_step.outputs._1}}" = "bla bla" ]
-        [ "${{steps.my_step.outputs.trimmed}}" = "bla bla" ]
+        [ "${{steps.my_step.outputs._0}}" = " blah blah " ]
+        [ "${{steps.my_step.outputs._1}}" = "blah blah" ]
+        [ "${{steps.my_step.outputs.trimmed}}" = "blah blah" ]
