@@ -1,4 +1,4 @@
-# `bisgardo/regex-parse`
+# `bisgardo/github-action-regex-parse`
 
 GitHub action for matching an input string against a regular expression pattern and extracting named groups.
 
@@ -50,7 +50,7 @@ jobs:
     outputs:
       blahblah-trimmed: "${{steps.my_step.outputs.trimmed}}"
     steps:
-    - uses: bisgardo/regex@v1
+    - uses: bisgardo/github-action-regex-parse@v1
       id: my_step
       with:
         pattern: '^\s*(?<trimmed>.*?)\s*$'
@@ -65,7 +65,7 @@ jobs:
     needs: my_job
     steps:
       - run: |
-        echo "trimmed: '${{steps.my_step.outputs.blahblah-trimmed}}'"  # "trimmed: 'blah blah'"
+        echo "trimmed: '${{needs.my_job.outputs.blahblah-trimmed}}'"  # "trimmed: 'blah blah'"
 ```
 
 The captured groups are available in subsequent steps of the job `my_job` as the template variables
